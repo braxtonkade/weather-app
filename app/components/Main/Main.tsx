@@ -1,5 +1,15 @@
+import Day from "../Day/Day";
+
 function Main() {
-  return <div>This is the main section</div>;
+  return (
+    <div>
+      <Day />
+      <Day />
+      <Day />
+      <Day />
+      <Day />
+    </div>
+  );
 }
 
 export default Main;
