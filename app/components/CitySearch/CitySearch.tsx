@@ -11,46 +11,27 @@ function CitySearch({ onSearch }: Props) {
   const [city, setCity] = useState("");
 
   useEffect(() => {
-    // async function fetchCity(city: string) {
-    //   const response = await fetch(
-    //     `https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=10&language=en&format=json`
-    //   );
-
-    //   const data = await response.json();
-
-    //   const searchResults = [];
-
-    //   for (let key of data.results) {
-    //     const city = {
-    //       id: key.id,
-    //       name: key.name,
-    //       country: key.country,
-    //       timezone: key.timezone,
-    //     };
-    //     searchResults.push(city);
-    //   }
-
-    //   onSearch(searchResults);
-    // }
     async function fetchCity(city: string) {
       const response = await fetch(
-        `http://api.geonames.org/searchJSON?name=${city}&name_startsWith=${city}&country=US&fuzzy=0.5&maxRows=3&username=braxtondalton`
+        `https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=5&language=en&format=json`
       );
 
       const data = await response.json();
 
-      console.log(data.geonames);
       const searchResults = [];
 
-      for (let key of data.geonames) {
+      for (let key of data.results) {
         const city = {
-          id: key.geonameId,
+          id: key.id,
           name: key.name,
-          state: key.adminName1,
+          state: key.admin1,
+          country: key.country,
+          timezone: key.timezone,
+          lat: key.latitude,
+          long: key.longitude,
         };
         searchResults.push(city);
       }
-
       onSearch(searchResults);
     }
 

@@ -3,15 +3,15 @@ import classes from "./City.module.css";
 
 interface Props {
   result: SearchResult;
+  onClick: (result: SearchResult) => void;
 }
 
-function City({ result }: Props) {
+function City({ result, onClick }: Props) {
   return (
     <div className={classes.city}>
-      <button>
-        <span>{result.state}</span>
+      <button onClick={() => onClick(result)}>
         <span>{result.name}</span>
-        {/* <span>{result.}</span> */}
+        <span>{result.state}</span>
       </button>
     </div>
   );

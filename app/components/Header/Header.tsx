@@ -6,7 +6,11 @@ import { useState } from "react";
 import SearchResult from "../../types/SearchResult";
 import SearchResults from "../SearchResults/SearchResults";
 
-function Header() {
+interface Props {
+  onCitySelect: (result: SearchResult) => void;
+}
+
+function Header({ onCitySelect }: Props) {
   const [searchResults, setSearchResults] = useState<SearchResult[] | null>(
     null
   );
@@ -15,13 +19,23 @@ function Header() {
     setSearchResults(results);
   }
 
+  function handleCitySelect(city: SearchResult) {
+    onCitySelect(city);
+    setSearchResults(null);
+  }
+
   return (
     <>
       <header className={classes.container}>
         <img src="/assets/images/icons8-sun.svg" alt="test" />
         <CitySearch onSearch={handleSearchResults} />
       </header>
-      {searchResults && <SearchResults results={searchResults} />}
+      {searchResults && (
+        <SearchResults
+          results={searchResults}
+          onCitySelect={handleCitySelect}
+        />
+      )}
     </>
   );
 }
